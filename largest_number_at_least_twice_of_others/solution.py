@@ -3,8 +3,10 @@ def dominant_index(nums):
     maximum = max(nums)
     dominant_index = -1
     for i, num in enumerate(nums):
-        if num == maximum: dominant_index = i
-        elif num * 2 > maximum: return -1
+        if num == maximum:
+            dominant_index = i
+        elif num * 2 > maximum:
+            return -1
     return dominant_index
 
 
