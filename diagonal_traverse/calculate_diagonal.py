@@ -1,7 +1,5 @@
 def find_diagonal_order(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-
+    rows, cols = len(matrix), len(matrix[0])
     result = []
     order = False
 
@@ -12,9 +10,8 @@ def find_diagonal_order(matrix):
 
         if order:
             temp.reverse()
-            order = False
-        else:
-            order = True
+
+        order = not order
 
         result += temp
     return result
