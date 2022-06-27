@@ -2,24 +2,24 @@ class Solution:
 
     def search_range(self, nums, target):
         positions = [-1, -1]
-        positions[0] = self.find_position(nums, target, False)
+        positions[0] = self.find_bound(nums, target, True)
         if positions[0] != -1:
-            positions[1] = self.find_position(nums, target, True)
+            positions[1] = self.find_bound(nums, target, False)
         return positions
 
-    def find_position(self, nums, target, is_finding_max):
-        index = -1
-        start, end = 0, len(nums) - 1
-        while start <= end:
-            mid = (start + end) // 2
+    def find_bound(self, nums, target, is_finding_first):
+        left, right = 0, len(nums) - 1
+        boundary_index = -1
+        while left <= right:
+            mid = (left + right) // 2
             if nums[mid] == target:
-                index = mid
-                if is_finding_max:
-                    start = mid + 1
+                boundary_index = mid
+                if is_finding_first:
+                    right = mid - 1
                 else:
-                    end = mid - 1
+                    left = mid + 1
             elif nums[mid] > target:
-                end = mid - 1
+                right = mid - 1
             else:
-                start = mid + 1
-        return index
+                left = mid + 1
+        return boundary_index

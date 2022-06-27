@@ -1,20 +1,21 @@
-class Solution:
+def search(reader, target):
+    if reader.get(0) == target:
+        return 0
 
-    def search(self, reader, target):
-        start, end = 0, 1
-        while reader.get(end) < target:
-            new_start = end + 1
-            end += (end - start + 1) * 2
-            start = new_start
-        return self.binary_search(reader, target, start, end)
+    left, right = 0, 1
+    while reader.get(right) < target:
+        left = right
+        right <<= 1
 
-    def binary_search(self, reader, target, start, end):
-        while start <= end:
-            mid = (start + end) // 2
-            if reader.get(mid) < target:
-                start = mid + 1
-            elif reader.get(mid) > target:
-                end = mid - 1
-            else:
-                return mid
-        return -1
+    while left <= right:
+        pivot = left + ((right - left) >> 1)
+        num = reader.get(pivot)
+
+        if num == target:
+            return pivot
+        if num > target:
+            right = pivot - 1
+        else:
+            left = pivot + 1
+
+    return -1
