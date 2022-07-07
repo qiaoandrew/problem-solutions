@@ -1,33 +1,30 @@
-def is_palindrome(head):
+class Solution:
 
-    def reverse(head):
+    def reverse(self, head):
         prev = None
         cur = head
-        while cur is not None:
-            next = cur.next
+        while cur:
+            next_temp = cur.next
             cur.next = prev
             prev = cur
-            cur = next
+            cur = next_temp
         return prev
 
-    if head is None or head.next is None:
+    def is_palindrome(self, head):
+        if not head or not head.next:
+            return True
+
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        head_second_half = self.reverse(slow)
+
+        while head and head_second_half:
+            if head.val != head_second_half.val:
+                return False
+            head = head.next
+            head_second_half = head_second_half.next
+
         return True
-
-    slow, fast = head, head
-    while fast is not None and fast.next is not None:
-        slow = slow.next
-        fast = fast.next.next
-
-    head_second_half = reverse(slow)
-    copy_head_second_half = head_second_half
-
-    result = True
-    while head is not None and head_second_half is not None:
-        if head.val != head_second_half.val:
-            result = False
-        head = head.next
-        head_second_half = head_second_half.next
-
-    reverse(copy_head_second_half)
-
-    return result
